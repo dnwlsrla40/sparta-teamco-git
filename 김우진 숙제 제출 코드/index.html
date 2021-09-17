@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <title>스파르타코딩클럽 | 부트스트랩 연습하기</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jua&display=swap" rel="stylesheet">
+</head>
+<style>
+    * {
+        font-family: 'Jua', sans-serif;
+    }
+
+    .hide {
+        display: none;
+    }
+</style>
+<script>
+    let first_select, second_select, third_select;
+    $(document).ready(function () {
+
+    });
+
+    function startRecommand(){
+        $('#first-box').removeClass("hide")
+        $('#first-button').removeClass("hide")
+        $('#start-button').addClass("hide")
+    }
+
+    function restart() {
+        window.location.reload();
+    }
+
+    function firstRecommand() {
+        $('#first-box').addClass("hide")
+        $('#second-box').removeClass("hide")
+        $('#first-button').addClass("hide")
+        $('#second-button').removeClass("hide")
+
+        var selected = $(':radio[name="first-select"]:checked').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/first_select?selected=' + selected,
+            success: function (res) {
+                first_select = res['data']
+            }
+        })
+        console.log(first_select,second_select, third_select)
+    }
+
+    function secondRecommand() {
+        $('#second-box').addClass("hide")
+        $('#third-box').addClass("show")
+        var selected = $(':radio[name="second-select"]:checked').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/second_select?selected=' + selected,
+            success: function (res) {
+                second_select = res['data']
+            }
+        })
+        console.log(first_select,second_select, third_select)
+    }
+
+    function thirdRecommand() {
+        $('#third-box').addClass("hide")
+        // $('#third-box').addClass("show")
+        var selected = $(':radio[name="third-select"]:checked').val();
+
+        $.ajax({
+            type: 'GET',
+            url: '/third_select?selected=' + selected,
+            success: function (res) {
+                third_select = res['data']
+            }
+        })
+        console.log(first_select,second_select, third_select)
+    }
+
+
+</script>
+<body>
+<div class="jumbotron">
+    <h1 class="display-4">주식 종목 추천!!</h1>
+    <p>원하시는 종목을 추천합니다</p>
+
+    <hr>
+
+    <div id="first-box" class="hide">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="first-select" id="kospi" value="코스피" checked>
+            <label class="form-check-label" for="kospi">
+                코스피
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="first-select" id="kosdaq" value="코스닥">
+            <label class="form-check-label" for="kosdaq">
+                코스닥
+            </label>
+        </div>
+    </div>
+
+    <div id="second-box" class="hide">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="second-select" id="semiconductor" value="반도체와반도체장비"
+                   checked>
+            <label class="form-check-label" for="kospi">
+                반도체와반도체장비
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="second-select" id="media" value="양방향미디어와서비스">
+            <label class="form-check-label" for="kosdaq">
+                양방향미디어와서비스
+            </label>
+        </div>
+        <div class="form-check" >
+            <input class="form-check-input" type="radio" name="second-select" id="car" value="자동차">
+            <label class="form-check-label" for="kosdaq">
+                자동차
+            </label>
+        </div>
+    </div>
+
+    <div id="third-box" class="hide">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="third-select" id="memory" value="메모리"
+                   checked>
+            <label class="form-check-label" for="kospi">
+                메모리
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="third-select" id="flatform" value="플랫폼">
+            <label class="form-check-label" for="kosdaq">
+                플랫폼
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="third-select" id="electcar" value="전기차">
+            <label class="form-check-label" for="kosdaq">
+                전기차
+            </label>
+        </div>
+    </div>
+
+    <p class="lead">
+        <a class="btn btn-primary btn-lg" id="start-button" onclick="startRecommand()" role="button">추천 시작</a>
+        <a class="btn btn-primary btn-lg hide" id="first-button" onclick="firstRecommand()" role="button">다음</a>
+        <a class="btn btn-primary btn-lg hide" id="second-button" onclick="secondRecommand()" role="button">다음</a>
+        <a class="btn btn-primary btn-lg hide" id="restart-button" onclick="restart()" role="button">다시 선택</a>
+    </p>
+</div>
+</body>
+</html>
